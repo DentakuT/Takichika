@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滝地下麻雀順位表</title>
+<style>
+table {
+width: 50%;
+border-collapse: collapse;
+margin: 20px auto;
+}
+th, td {
+border: 1px solid black;
+padding: 8px;
+text-align: left;
+}
+th {
+background-color: #f2f2f2;
+}
+</style>
+</head>
+<body>
+<h1>順位表</h1>
+<h4>最終更新:4/30</h4>
+<table id="rankings">
+<tr>
+<th>順位</th>
+<th>名前</th>
+<th>レート</th>
+</tr>
+</table>
+
+<script>
+// データを取得して順位表を作成する関数
+function generateRankings() {
+// データファイルのURL
+var dataFile = "data.txt";
+
+// 順位表のテーブル要素
+var table = document.getElementById("rankings");
+
+// データを取得
+fetch(dataFile)
+.then(response => response.text())
+.then(data => {
+// データを改行で分割し、各行を処理
+data.trim().split('\n').map(line => {
+var [name, rate] = line.split(':');
+return { name, rate: parseInt(rate) };
+}).sort((a, b) => b.rate - a.rate) // レートで降順ソート
+.forEach((item, index) => {
+var rank = index + 1;
+
+// テーブルに行を追加
+var row = table.insertRow();
+row.insertCell(0).textContent = rank;
+row.insertCell(1).textContent = http://item.name;
+row.insertCell(2).textContent = item.rate;
+});
+});
+}
+
+// ページの読み込みが完了したら順位表を生成
+window.onload = generateRankings;
+</script>
+</body>
+</html>
+午後11:29
+選択されていません
 
